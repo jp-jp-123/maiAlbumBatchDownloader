@@ -11,19 +11,27 @@ chrome.runtime.onInstalled.addListener(function () {
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
   if (info.menuItemId === "maiAlbumBatchDownloader") {
     // Send a message to the content script to retrieve image URLs
-    chrome.tabs.sendMessage(tab.id, { action: "getUrls" }, function (response) {
+    chrome.tabs.sendMessage(tab.id, { action: "getUrlsAndFilenames" }, function (response) {
+      if (chrome.runtime.lastError){
+        console.error("Error sending message: ", chrome.runtime.lastError);
+        return;
+      }
+
       if (!response || response.imageUrls.length === 0) {
         console.error("Error retrieving imageUrls");
         return;
       }
 
       const retrievedImageUrls = response.imageUrls;
+      const retrievedFilenames = response.filenames;
 
       for (const imageUrl of retrievedImageUrls) {
-        console.log('Initiating download for:', imageUrl);
+        const filename = retrievedFilenames[imageUrl]
+        console.log('Initiating download for:', imageUrl, ' with filename: ', filename);
 
         chrome.downloads.download({
           url: imageUrl,
+          filename: filename,
           conflictAction: "uniquify",
         }, function (DownloadItem) {
           if (chrome.runtime.lastError) {

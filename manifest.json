@@ -13,7 +13,7 @@
 		"service_worker": "background.js"
 	},
 
-	"permissions": ["downloads", "activeTab", "contextMenus"],
+	"permissions": ["downloads", "activeTab", "contextMenus", "scripting"],
 
 	"content_scripts":[
 		{
