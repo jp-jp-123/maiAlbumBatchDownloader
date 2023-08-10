@@ -1,0 +1,24 @@
+{
+	"manifest_version": 3,
+	"name": "maimai Album Batch Downloader",
+	"version": "1.0.0",
+	"description": "Batch downloading for maimai Album",
+	"icons": {
+		"128": "icon/rizu128.jpg",
+		"32": "icon/rizu128.jpg",
+		"16": "icon/rizu128.jpg"
+	},
+
+	"background": {
+		"service_worker": "background.js"
+	},
+
+	"permissions": ["downloads", "activeTab", "contextMenus"],
+
+	"content_scripts":[
+		{
+			"matches": ["https://maimaidx-eng.com/maimai-mobile/photo/album/"],
+			"js": ["content.js"]
+		}
+	]
+}
