@@ -1,6 +1,4 @@
-// content.js
-
-// Find all image elements on the page
+// Find all maimai image elements on the page
 const imageElements = document.querySelectorAll('[class = "w_430"]');
 
 // Create an array to store image URLs
@@ -12,5 +10,8 @@ for (const imgElement of imageElements) {
   imageUrls.push(imageUrl);
 }
 
-// Send the collected image URLs to the background script
-chrome.runtime.sendMessage({ action: 'batchDownload', imageUrls });
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action === "getUrls") {
+    sendResponse({ imageUrls: imageUrls });
+  }
+});
