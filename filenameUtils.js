@@ -1,3 +1,5 @@
+// helps parsing the filenames
+
 export function chartType(url){
 	if (url === "https://maimaidx-eng.com/maimai-mobile/img/music_standard.png"){
 		return "Standard";
