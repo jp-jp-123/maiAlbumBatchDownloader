@@ -13,12 +13,18 @@
 		"service_worker": "background.js"
 	},
 
-	"permissions": ["downloads", "activeTab", "contextMenus"],
+	"permissions": ["downloads", "activeTab", "contextMenus", "scripting"],
 
 	"content_scripts":[
 		{
 			"matches": ["https://maimaidx-eng.com/maimai-mobile/photo/album/"],
-			"js": ["content.js"]
-		}
-	]
+			"js": ["contentasync.js"],
+			"type": "module"
+		}	
+	],
+
+	"web_accessible_resources": [{
+    	"matches": ["<all_urls>"],
+    	"resources": ["filenameGenerator.js", "filenameUtils.js", "content.js"]
+   }]
 }
