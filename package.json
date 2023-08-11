@@ -1,0 +1,12 @@
+{
+  "name": "maialbumbatchdownloader",
+  "version": "1.0.0",
+  "description": "album batch downloader fro maimai website as browser extension",
+  "main": "background.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

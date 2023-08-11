@@ -13,10 +13,9 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     // Send a message to the content script to retrieve image URLs
     chrome.tabs.sendMessage(tab.id, { action: "getUrlsAndFilenames" }, function (response) {
       if (chrome.runtime.lastError){
-        console.error("Error sending message: ", chrome.runtime.lastError);
+        console.error("Error sending message: ", chrome.runtime.lastError.message);
         return;
       }
-
       if (!response || response.imageUrls.length === 0) {
         console.error("Error retrieving imageUrls");
         return;
@@ -26,16 +25,16 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
       const retrievedFilenames = response.filenames;
 
       for (const imageUrl of retrievedImageUrls) {
-        const filename = retrievedFilenames[imageUrl]
-        console.log('Initiating download for:', imageUrl, ' with filename: ', filename);
+        const new_filename = retrievedFilenames[imageUrl]
+        console.log('Initiating download for:', imageUrl, ' with filename: ', new_filename);
 
         chrome.downloads.download({
           url: imageUrl,
-          filename: filename,
+          filename: new_filename,
           conflictAction: "uniquify",
         }, function (DownloadItem) {
           if (chrome.runtime.lastError) {
-            console.error("Download Failed: ", chrome.runtime.lastError);
+            console.error("Download Failed: ", chrome.runtime.lastError.message);
             return;
           }
           console.log("Download started: ", DownloadItem);

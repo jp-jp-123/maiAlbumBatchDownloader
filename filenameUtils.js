@@ -11,7 +11,7 @@ export function chartType(url){
 	}
 }
 
-export function difficulty(url){
+export function chartDifficulty(url){
 	if (url === "https://maimaidx-eng.com/maimai-mobile/img/diff_remaster.png"){
 		return "ReMaster";
 	}
